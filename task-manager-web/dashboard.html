@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Task Manager</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Navigation -->
+        <nav class="navbar" data-testid="navbar">
+            <div class="nav-brand">
+                <h2>Task Manager</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html" class="active" data-testid="nav-dashboard">Dashboard</a></li>
+                <li><a href="tasks.html" data-testid="nav-tasks">Tasks</a></li>
+                <li><a href="categories.html" data-testid="nav-categories">Categories</a></li>
+                <li><a href="#" id="logoutBtn" data-testid="nav-logout">Logout</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="content-wrapper">
+            <div class="page-header">
+                <h1 id="welcomeMessage" data-testid="welcome-message">Welcome, User!</h1>
+                <p>Here's an overview of your tasks</p>
+            </div>
+
+            <!-- Statistics Cards -->
+            <div class="stats-grid">
+                <div class="stat-card stat-card-primary">
+                    <div class="stat-icon">📋</div>
+                    <div class="stat-content">
+                        <h3 id="totalTasks" data-testid="total-tasks">0</h3>
+                        <p>Total Tasks</p>
+                    </div>
+                </div>
+
+                <div class="stat-card stat-card-success">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-content">
+                        <h3 id="completedTasks" data-testid="completed-tasks">0</h3>
+                        <p>Completed</p>
+                    </div>
+                </div>
+
+                <div class="stat-card stat-card-warning">
+                    <div class="stat-icon">⏳</div>
+                    <div class="stat-content">
+                        <h3 id="pendingTasks" data-testid="pending-tasks">0</h3>
+                        <p>Pending</p>
+                    </div>
+                </div>
+
+                <div class="stat-card stat-card-danger">
+                    <div class="stat-icon">🔥</div>
+                    <div class="stat-content">
+                        <h3 id="highPriorityTasks" data-testid="high-priority-tasks">0</h3>
+                        <p>High Priority</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <h2>Quick Actions</h2>
+                <div class="action-buttons">
+                    <a href="tasks.html" class="btn btn-primary" data-testid="quick-add-task">
+                        ➕ Add New Task
+                    </a>
+                    <a href="tasks.html" class="btn btn-secondary" data-testid="quick-view-tasks">
+                        📄 View All Tasks
+                    </a>
+                    <a href="categories.html" class="btn btn-secondary" data-testid="quick-manage-categories">
+                        🏷️ Manage Categories
+                    </a>
+                </div>
+            </div>
+
+            <!-- Recent Tasks Preview -->
+            <div class="recent-tasks-section">
+                <div class="section-header">
+                    <h2>Recent Tasks</h2>
+                    <a href="tasks.html" class="link-primary">View All →</a>
+                </div>
+                <div id="recentTasksList" data-testid="recent-tasks-list">
+                    <!-- Recent tasks will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="spinner"></div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/validation.js"></script>
+    <script src="js/storage.js"></script>
+    <script>
+        // Check authentication
+        if (!Storage.isLoggedIn()) {
+            window.location.href = 'index.html';
+        }
+
+        // Display welcome message
+        const currentUser = Storage.getCurrentUser();
+        if (currentUser) {
+            document.getElementById('welcomeMessage').textContent = `Welcome, ${currentUser.username}!`;
+        }
+
+        // Load statistics
+        function loadDashboardStats() {
+            const tasks = Storage.getTasks();
+            const totalTasks = tasks.length;
+            const completedTasks = tasks.filter(t => t.status === 'Complete').length;
+            const pendingTasks = tasks.filter(t => t.status === 'Incomplete').length;
+            const highPriorityTasks = tasks.filter(t => t.priority === 'High').length;
+
+            document.getElementById('totalTasks').textContent = totalTasks;
+            document.getElementById('completedTasks').textContent = completedTasks;
+            document.getElementById('pendingTasks').textContent = pendingTasks;
+            document.getElementById('highPriorityTasks').textContent = highPriorityTasks;
+        }
+
+        // Load recent tasks (last 5)
+        function loadRecentTasks() {
+            const tasks = Storage.getTasks().slice(0, 5);
+            const container = document.getElementById('recentTasksList');
+
+            if (tasks.length === 0) {
+                container.innerHTML = '<p class="empty-state">No tasks yet. Create your first task!</p>';
+                return;
+            }
+
+            container.innerHTML = tasks.map(task => `
+                <div class="task-preview" data-testid="task-preview-${task.id}">
+                    <div class="task-preview-header">
+                        <h4>${escapeHtml(task.title)}</h4>
+                        <span class="badge badge-${task.priority.toLowerCase()}">${task.priority}</span>
+                    </div>
+                    <p class="task-preview-desc">${escapeHtml(task.description)}</p>
+                    <div class="task-preview-footer">
+                        <span class="task-status status-${task.status.toLowerCase()}">${task.status}</span>
+                        <span class="task-date">Due: ${task.dueDate}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Logout handler
+        document.getElementById('logoutBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            if (confirm('Are you sure you want to logout?')) {
+                Storage.logout();
+                showToast('Logged out successfully', 'success');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1000);
+            }
+        });
+
+        // Initialize dashboard
+        loadDashboardStats();
+        loadRecentTasks();
+    </script>
+</body>
+</html>
