@@ -82,8 +82,8 @@ function showAddCategoryModal() {
     currentCategoryId = null;
     document.getElementById('modalTitle').textContent = 'Add New Category';
     resetForm('categoryForm');
-    document.getElementById('categoryColor').value = '#eab308';
-    colorPreview.textContent = '#eab308';
+    document.getElementById('categoryColor').value = '#9333ea';
+    colorPreview.textContent = '#9333ea';
     openModal('categoryModal');
 }
 
