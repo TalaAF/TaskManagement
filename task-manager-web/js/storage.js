@@ -36,7 +36,7 @@ const Storage = {
 
         // Create default categories
         const defaultCategories = [
-            { id: generateId(), name: 'Work', color: '#2563eb', taskCount: 0 },
+            { id: generateId(), name: 'Work', color: '#eab308', taskCount: 0 },
             { id: generateId(), name: 'Personal', color: '#10b981', taskCount: 0 },
             { id: generateId(), name: 'Shopping', color: '#f59e0b', taskCount: 0 },
             { id: generateId(), name: 'Health', color: '#ef4444', taskCount: 0 }

@@ -323,7 +323,7 @@ function isStrongPassword(password) {
 
 // === COLOR UTILITIES ===
 function getRandomColor() {
-    const colors = ['#2563eb', '#10b981', '#ef4444', '#f59e0b', '#06b6d4', '#8b5cf6'];
+    const colors = ['#eab308', '#10b981', '#ef4444', '#f59e0b', '#06b6d4', '#8b5cf6'];
     return colors[Math.floor(Math.random() * colors.length)];
 }
 

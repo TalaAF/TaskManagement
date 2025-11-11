@@ -1,7 +1,7 @@
 /* ========================================
    TASK MANAGER - MAIN STYLESHEET
    Color Scheme:
-   - Primary Blue: #2563eb
+   - Primary Yellow: #eab308
    - Success Green: #10b981
    - Danger Red: #ef4444
    ======================================== */
@@ -15,9 +15,9 @@
 
 :root {
     /* Colors */
-    --primary: #2563eb;
-    --primary-dark: #1d4ed8;
-    --primary-light: #3b82f6;
+    --primary: #eab308;
+    --primary-dark: #ca8a04;
+    --primary-light: #fbbf24;
     --success: #10b981;
     --success-dark: #059669;
     --danger: #ef4444;

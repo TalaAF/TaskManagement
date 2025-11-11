@@ -140,7 +140,7 @@ All interactive elements have `data-testid` attributes for easy Selenium testing
 
 ## 🎨 Color Scheme
 
-- **Primary Blue**: `#2563eb` - Main actions, navigation
+- **Primary Yellow**: `#eab308` - Main actions, navigation
 - **Success Green**: `#10b981` - Success states, completed tasks
 - **Danger Red**: `#ef4444` - Delete actions, errors, high priority
 - **Warning Orange**: `#f59e0b` - Medium priority, incomplete tasks
