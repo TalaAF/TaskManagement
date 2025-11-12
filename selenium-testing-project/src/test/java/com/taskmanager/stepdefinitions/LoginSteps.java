@@ -181,19 +181,6 @@ public class LoginSteps {
         }
     }
 
-    @Then("I should see success notification {string}")
-    public void i_should_see_success_notification(String expectedNotification) {
-        // Toast notifications appear briefly
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        // Note: In a real scenario, you would capture the toast text
-        // For now, we'll just verify we're on the correct page
-        Assert.assertTrue(true, "Success notification check");
-    }
-
     @Then("I should be redirected to the login page")
     public void i_should_be_redirected_to_the_login_page() {
         loginPage = new LoginPage(driver);
@@ -204,18 +191,6 @@ public class LoginSteps {
         }
         Assert.assertTrue(loginPage.isOnLoginPage(),
                 "User was not redirected to login page");
-    }
-
-    @Then("I should see error {string}")
-    public void i_should_see_error(String expectedError) {
-        // Wait for error to appear
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        // Check if error is displayed (implementation depends on page structure)
-        Assert.assertTrue(true, "Error validation check");
     }
 
     @Then("I should see logout notification {string}")

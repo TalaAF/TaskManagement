@@ -138,15 +138,6 @@ public class CategorySteps {
         categoriesPage.deleteCategoryByName(categoryName);
     }
 
-    @When("I should see delete confirmation modal")
-    public void i_should_see_delete_confirmation_modal() {
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
     @When("I confirm the deletion")
     public void i_confirm_the_deletion() {
         categoriesPage.confirmDelete();
@@ -212,17 +203,6 @@ public class CategorySteps {
 
     // ==================== THEN STEPS ====================
 
-    @Then("I should see success notification {string}")
-    public void i_should_see_success_notification(String notification) {
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        // In a real implementation, capture and verify the toast message
-        Assert.assertTrue(true, "Success notification check");
-    }
-
     @Then("the category {string} should appear in the category list")
     public void the_category_should_appear_in_the_category_list(String categoryName) {
         try {
@@ -238,17 +218,6 @@ public class CategorySteps {
     public void the_category_should_appear_in_the_list(String categoryName) {
         Assert.assertTrue(categoriesPage.isCategoryPresent(categoryName),
                 "Category '" + categoryName + "' is not in the list");
-    }
-
-    @Then("I should see error {string}")
-    public void i_should_see_error(String errorMessage) {
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        // Verify error message is displayed
-        Assert.assertTrue(true, "Error message verification");
     }
 
     @Then("all tasks should now be in {string} category")

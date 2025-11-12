@@ -172,16 +172,6 @@ public class TaskSteps {
         tasksPage.deleteTaskByTitle(taskTitle);
     }
 
-    @When("I should see delete confirmation modal")
-    public void i_should_see_delete_confirmation_modal() {
-        // Modal visibility is handled in the page object
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
     @When("I click confirm delete button")
     public void i_click_confirm_delete_button() {
         tasksPage.confirmDelete();
@@ -291,17 +281,6 @@ public class TaskSteps {
     }
 
     // ==================== THEN STEPS ====================
-
-    @Then("I should see success notification {string}")
-    public void i_should_see_success_notification(String notification) {
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        // In a real implementation, capture and verify the toast message
-        Assert.assertTrue(true, "Success notification check");
-    }
 
     @Then("the task {string} should appear in the task list")
     public void the_task_should_appear_in_the_task_list(String taskTitle) {
@@ -417,16 +396,6 @@ public class TaskSteps {
     public void i_should_see_validation_errors_for_required_fields() {
         // Check for validation error messages
         Assert.assertTrue(true, "Validation errors displayed");
-    }
-
-    @Then("I should see error {string}")
-    public void i_should_see_error(String errorMessage) {
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        Assert.assertTrue(true, "Error message displayed");
     }
 
     @Then("the task should be created successfully")
