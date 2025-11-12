@@ -1,0 +1,16 @@
+title,description,priority,dueDate,category,status
+Review Code,Review pull request #123 for new feature,High,2025-12-15,Work,Incomplete
+Team Meeting,Weekly team sync meeting,Medium,2025-12-10,Work,Incomplete
+Buy Groceries,Get milk eggs and bread,Low,2025-12-08,Shopping,Incomplete
+Doctor Appointment,Annual checkup at 2pm,High,2025-12-20,Health,Incomplete
+Update Documentation,Update README and API docs,Medium,2025-12-18,Work,Incomplete
+Gym Workout,Cardio and strength training,Low,2025-12-09,Health,Complete
+Pay Bills,Electricity and water bills,High,2025-12-12,Personal,Incomplete
+Read Book,Finish reading Clean Code chapter 5,Low,2025-12-25,Personal,Incomplete
+Client Presentation,Prepare Q4 presentation slides,High,2025-12-14,Work,Incomplete
+Home Maintenance,Fix leaking faucet in bathroom,Medium,2025-12-16,Personal,Incomplete
+Code Refactoring,Refactor authentication module,Medium,2025-12-22,Work,Incomplete
+Meal Prep,Prepare meals for the week,Low,2025-12-11,Personal,Complete
+Submit Report,Submit monthly project status report,High,2025-12-13,Work,Incomplete
+Call Parents,Weekly check-in call,Low,2025-12-09,Personal,Complete
+Research Tools,Research new testing frameworks,Medium,2025-12-19,Work,Incomplete

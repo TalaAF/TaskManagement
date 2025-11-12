@@ -1,0 +1,70 @@
+{
+  "users": [
+    {
+      "username": "admin",
+      "password": "admin123",
+      "fullName": "Admin User",
+      "email": "admin@taskmanager.com"
+    },
+    {
+      "username": "testuser",
+      "password": "test123",
+      "fullName": "Test User",
+      "email": "test@example.com"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Complete Selenium Project",
+      "description": "Finish all test scenarios for the task manager application",
+      "priority": "High",
+      "dueDate": "2025-12-15",
+      "category": "Work",
+      "status": "Incomplete"
+    },
+    {
+      "title": "Write Test Documentation",
+      "description": "Document all test cases and scenarios",
+      "priority": "Medium",
+      "dueDate": "2025-12-18",
+      "category": "Work",
+      "status": "Incomplete"
+    },
+    {
+      "title": "Code Review",
+      "description": "Review team member's pull request",
+      "priority": "High",
+      "dueDate": "2025-12-10",
+      "category": "Work",
+      "status": "Complete"
+    }
+  ],
+  "categories": [
+    {
+      "name": "Work",
+      "color": "#9333ea"
+    },
+    {
+      "name": "Personal",
+      "color": "#10b981"
+    },
+    {
+      "name": "Shopping",
+      "color": "#f59e0b"
+    },
+    {
+      "name": "Health",
+      "color": "#ef4444"
+    },
+    {
+      "name": "Urgent",
+      "color": "#dc2626"
+    }
+  ],
+  "testConfig": {
+    "baseUrl": "file:///home/user/TaskManagement/task-manager-web/index.html",
+    "defaultTimeout": 10,
+    "retryCount": 1,
+    "browsers": ["chrome", "firefox", "edge"]
+  }
+}

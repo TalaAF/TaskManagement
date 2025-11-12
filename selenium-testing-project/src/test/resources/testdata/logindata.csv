@@ -1,0 +1,8 @@
+username,password,expected_result,description
+admin,admin123,success,Valid admin credentials
+testuser,test123,success,Valid test user credentials
+invalid,wrongpass,failure,Invalid username and password
+,admin123,failure,Empty username
+admin,,failure,Empty password
+wronguser,admin123,failure,Invalid username
+admin,wrongpass,failure,Invalid password
