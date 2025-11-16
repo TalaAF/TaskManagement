@@ -20,7 +20,7 @@ import org.testng.annotations.DataProvider;
         },
         monochrome = true,                                   // Readable console output
         dryRun = false,                                      // Set to true to check step definitions
-        tags = ""                                            // Run all scenarios (can use @smoke, @login, etc.)
+        tags = "@smoke"                                      // Run only smoke tests
 )
 public class TestRunner extends AbstractTestNGCucumberTests {
 
