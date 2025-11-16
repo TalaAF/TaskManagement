@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Task Manager Automation Test Suite" parallel="tests" thread-count="3" verbose="1">
+<!--
+    Task Manager Automation Test Suite
+    - By default, runs tests on Chrome browser only
+    - To enable cross-browser testing, set enabled="true" for Firefox and/or Edge tests
+    - Adjust thread-count if running multiple browsers in parallel
+-->
+<suite name="Task Manager Automation Test Suite" parallel="tests" thread-count="1" verbose="1">
 
     <parameter name="browser" value="chrome"/>
 
@@ -9,7 +15,7 @@
         <listener class-name="com.taskmanager.utils.ExtentReportListener"/>
     </listeners>
 
-    <!-- Chrome Browser Tests -->
+    <!-- Chrome Browser Tests (Default - Always Enabled) -->
     <test name="Chrome - Task Manager Tests" parallel="false">
         <parameter name="browser" value="chrome"/>
         <classes>
@@ -17,16 +23,16 @@
         </classes>
     </test>
 
-    <!-- Firefox Browser Tests -->
-    <test name="Firefox - Task Manager Tests" parallel="false" enabled="true">
+    <!-- Firefox Browser Tests (Disabled by default - Set enabled="true" to activate) -->
+    <test name="Firefox - Task Manager Tests" parallel="false" enabled="false">
         <parameter name="browser" value="firefox"/>
         <classes>
             <class name="com.taskmanager.runners.TestRunner"/>
         </classes>
     </test>
 
-    <!-- Edge Browser Tests -->
-    <test name="Edge - Task Manager Tests" parallel="false" enabled="true">
+    <!-- Edge Browser Tests (Disabled by default - Set enabled="true" to activate) -->
+    <test name="Edge - Task Manager Tests" parallel="false" enabled="false">
         <parameter name="browser" value="edge"/>
         <classes>
             <class name="com.taskmanager.runners.TestRunner"/>
