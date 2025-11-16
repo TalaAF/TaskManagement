@@ -42,25 +42,50 @@ public class ConfigReader {
         return properties.getProperty(key, defaultValue);
     }
 
+    /**
+     * Resolve file URL - converts relative paths to absolute using project root
+     */
+    private static String resolveFileUrl(String url) {
+        if (url.startsWith("file://") && !url.contains("${project.root}")) {
+            // Already an absolute file URL
+            return url;
+        }
+
+        if (url.contains("${project.root}")) {
+            // Get project root directory (parent of selenium-testing-project)
+            String projectRoot = System.getProperty("user.dir");
+            if (projectRoot.endsWith("selenium-testing-project")) {
+                projectRoot = projectRoot.substring(0, projectRoot.lastIndexOf("selenium-testing-project"));
+            }
+            // Remove trailing slash if present
+            if (projectRoot.endsWith("/") || projectRoot.endsWith("\\")) {
+                projectRoot = projectRoot.substring(0, projectRoot.length() - 1);
+            }
+            url = url.replace("${project.root}", projectRoot);
+        }
+
+        return url;
+    }
+
     // Application URLs
     public static String getBaseUrl() {
-        return getProperty("base.url");
+        return resolveFileUrl(getProperty("base.url"));
     }
 
     public static String getDashboardUrl() {
-        return getProperty("dashboard.url");
+        return resolveFileUrl(getProperty("dashboard.url"));
     }
 
     public static String getTasksUrl() {
-        return getProperty("tasks.url");
+        return resolveFileUrl(getProperty("tasks.url"));
     }
 
     public static String getCategoriesUrl() {
-        return getProperty("categories.url");
+        return resolveFileUrl(getProperty("categories.url"));
     }
 
     public static String getRegisterUrl() {
-        return getProperty("register.url");
+        return resolveFileUrl(getProperty("register.url"));
     }
 
     // Browser Configuration

@@ -1,7 +1,10 @@
 package com.taskmanager.stepdefinitions;
 
+import com.taskmanager.hooks.Hooks;
+import com.taskmanager.utils.WaitHelper;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 /**
@@ -10,40 +13,35 @@ import org.testng.Assert;
  */
 public class CommonSteps {
 
+    private WebDriver driver;
+    private WaitHelper waitHelper;
+
+    public CommonSteps() {
+        this.driver = Hooks.getDriver();
+        this.waitHelper = new WaitHelper(driver);
+    }
+
     // ==================== COMMON THEN STEPS ====================
 
     @Then("I should see success notification {string}")
     public void i_should_see_success_notification(String notification) {
-        // Toast notifications appear briefly
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        // Note: In a real scenario, you would capture the toast text
-        // For now, we'll just verify the action was successful
-        Assert.assertTrue(true, "Success notification check");
+        // Wait for and verify toast notification
+        String toastText = waitHelper.waitForToastNotification();
+        Assert.assertTrue(toastText.contains(notification),
+                "Expected notification: " + notification + " but got: " + toastText);
     }
 
     @Then("I should see error {string}")
     public void i_should_see_error(String expectedError) {
-        // Wait for error to appear
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        // Check if error is displayed (implementation depends on page structure)
-        Assert.assertTrue(true, "Error validation check");
+        // Wait for and verify error notification
+        String toastText = waitHelper.waitForToastNotification();
+        Assert.assertTrue(toastText.contains(expectedError),
+                "Expected error: " + expectedError + " but got: " + toastText);
     }
 
     @When("I should see delete confirmation modal")
     public void i_should_see_delete_confirmation_modal() {
-        // Modal visibility is handled in the page object
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        // Wait for delete confirmation modal to appear
+        waitHelper.waitForModalVisible("deleteModal");
     }
 }

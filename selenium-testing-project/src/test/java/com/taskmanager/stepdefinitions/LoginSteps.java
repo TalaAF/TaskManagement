@@ -5,6 +5,7 @@ import com.taskmanager.pages.DashboardPage;
 import com.taskmanager.pages.LoginPage;
 import com.taskmanager.pages.RegisterPage;
 import com.taskmanager.utils.ConfigReader;
+import com.taskmanager.utils.WaitHelper;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -21,10 +22,12 @@ public class LoginSteps {
     private LoginPage loginPage;
     private RegisterPage registerPage;
     private DashboardPage dashboardPage;
+    private WaitHelper waitHelper;
 
     public LoginSteps() {
         this.driver = Hooks.getDriver();
         this.loginPage = new LoginPage(driver);
+        this.waitHelper = new WaitHelper(driver);
     }
 
     // ==================== GIVEN STEPS ====================
@@ -62,11 +65,7 @@ public class LoginSteps {
     public void i_click_the_login_button() {
         loginPage.clickLoginButton();
         // Wait for page transition
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        waitHelper.waitForPageLoad();
     }
 
     @When("I check the Remember Me checkbox")
@@ -102,11 +101,7 @@ public class LoginSteps {
     @When("I click the register button")
     public void i_click_the_register_button() {
         registerPage.clickRegisterButton();
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        waitHelper.waitForPageLoad();
     }
 
     @When("I click the logout button")
@@ -118,11 +113,7 @@ public class LoginSteps {
     @When("I confirm the logout")
     public void i_confirm_the_logout() {
         // Logout confirmation is handled in the logout method
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        waitHelper.waitForPageLoad();
     }
 
     // ==================== THEN STEPS ====================
@@ -184,11 +175,7 @@ public class LoginSteps {
     @Then("I should be redirected to the login page")
     public void i_should_be_redirected_to_the_login_page() {
         loginPage = new LoginPage(driver);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        waitHelper.waitForPageLoad();
         Assert.assertTrue(loginPage.isOnLoginPage(),
                 "User was not redirected to login page");
     }
@@ -196,11 +183,8 @@ public class LoginSteps {
     @Then("I should see logout notification {string}")
     public void i_should_see_logout_notification(String notification) {
         // Toast notification check
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        Assert.assertTrue(true, "Logout notification check");
+        String toastText = waitHelper.waitForToastNotification();
+        Assert.assertTrue(toastText.contains(notification),
+                "Expected notification: " + notification + " but got: " + toastText);
     }
 }
